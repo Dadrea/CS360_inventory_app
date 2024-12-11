@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inventory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/inventoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:text="@string/Inventory"
+        android:textColor="@color/white"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <Spinner
+        android:id="@+id/settingsSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:entries="@array/settings_items"
+        android:theme="@style/CustomSpinnerText"
+        android:layout_marginHorizontal="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/inventoryTextView"
+        app:layout_constraintBaseline_toBaselineOf="@id/inventoryTextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/inventoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/inventoryTextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

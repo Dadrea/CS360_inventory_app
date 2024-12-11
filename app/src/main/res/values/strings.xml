@@ -1,0 +1,45 @@
+<resources>
+    <!--  Login Screen Text   -->
+    <string name="app_name">inventoryApplication</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="Register">Register New User</string>
+    <string name="Company">Forward Logistics</string>
+    <string name="CompanyLogo">Forward Logistics Company Logo</string>
+
+    <!--  New User Creation Text  -->
+    <string name="NewUser">Create New User</string>
+    <string name="NewUserName">Enter Username (First Initial, Last Name)</string>
+    <string name="NewUserPassword">Create New Password</string>
+    <string name="NewUserEmail">Enter Email</string>
+    <string name="NewUserPhone">Enter Phone Number</string>
+    <string name="NewUserAddress">Enter Address</string>
+    <string name="NewUserSuper">Enter Supervisor Name</string>
+    <string name="NewUserLocation">Enter Work Location</string>
+    <string name="BackToLogin">Back to Login</string>
+
+    !-- Inventory Text -->
+    <string name="product_thumbnail">Image of inventory item</string>
+    <string name="Inventory">Forward Logistics Inventory</string>
+
+    !-- Spinner Text -->
+    <string-array name="settings_items">
+        <item>Settings</item>
+        <item>Views</item>
+        <item>Notifications</item>
+        <item>Account</item>
+        <item>Log Out</item>
+    </string-array>
+
+    !-- Notification text -->
+    <string name="Checking">Checking SMS permission…</string>
+    <string name="Grant">Grant SMS Permission</string>
+    <string name="Enabled">SMS Notifications Enabled</string>
+    <string name="Disabled">SMS Notifications Disabled. Please grant permission.</string>
+
+    <string name="Denied">Permission Denied. SMS Notifications Disabled.</string>
+    <string name="Alert">Alert: Inventory is at Zero for this item!</string>
+
+
+</resources>
