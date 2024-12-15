@@ -28,6 +28,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".ModifyItemActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

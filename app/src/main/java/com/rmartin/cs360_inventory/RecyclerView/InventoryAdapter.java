@@ -1,14 +1,16 @@
 package com.rmartin.cs360_inventory.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.rmartin.cs360_inventory.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.rmartin.cs360_inventory.InventoryItem;
+import com.rmartin.cs360_inventory.R;
+import com.rmartin.cs360_inventory.DetailActivity;
 import java.util.List;
 
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder> {
@@ -36,6 +38,16 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         if (item != null) {
             holder.productName.setText(item.getName() != null ? item.getName() : "Unknown Product");
             holder.productCount.setText("Count: " + (item.getCount() >= 0 ? item.getCount() : 0));
+
+            // Set up the onClickListener for navigating to the detailed view
+            holder.itemView.setOnClickListener(v -> {
+                // Start the DetailActivity when an item is clicked
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("item_name", item.getName());
+                intent.putExtra("item_count", item.getCount());
+                intent.putExtra("item_description", item.getDescription());
+                context.startActivity(intent);
+            });
         }
     }
 

@@ -76,6 +76,31 @@ public class InventoryDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public InventoryItem getItemByName(String itemName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, NAME_COL + " = ?", new String[]{itemName}, null, null, null);
+
+        InventoryItem item = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            // Get column indices
+            int nameIndex = cursor.getColumnIndex(NAME_COL);
+            int countIndex = cursor.getColumnIndex(COUNT_COL);
+            int descriptionIndex = cursor.getColumnIndex(DESCRIPTION_COL);
+
+            if (nameIndex != -1 && countIndex != -1 && descriptionIndex != -1) {
+                String name = cursor.getString(nameIndex);
+                int count = cursor.getInt(countIndex);
+                String description = cursor.getString(descriptionIndex);
+
+                // Create InventoryItem object
+                item = new InventoryItem(name, count, description);
+            }
+            cursor.close();
+        }
+        db.close();
+        return item;
+    }
+
     public List<InventoryItem> getAllItems() {
         List<InventoryItem> itemList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -105,6 +130,8 @@ public class InventoryDBHandler extends SQLiteOpenHelper {
         db.close();
         return itemList;
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
