@@ -1,12 +1,15 @@
 package com.rmartin.cs360_inventory;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import androidx.activity.EdgeToEdge;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -30,6 +33,7 @@ public class NotificationActivity extends AppCompatActivity {
     private Button requestPermissionButton;
     private EditText phoneNumberInput;
     private Switch smsPermissionToggle;
+    private Button backToInventoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class NotificationActivity extends AppCompatActivity {
         requestPermissionButton = findViewById(R.id.request_permission_button);
         phoneNumberInput = findViewById(R.id.phone_number_input);
         smsPermissionToggle = findViewById(R.id.sms_permission_toggle);
+        backToInventoryButton = findViewById(R.id.backToInventoryButton);
 
         checkAndHandleSMSPermission();
 
@@ -53,6 +58,13 @@ public class NotificationActivity extends AppCompatActivity {
         });
 
         requestPermissionButton.setOnClickListener(v -> requestSMSPermission());
+
+        backToInventoryButton.setOnClickListener(v -> {
+            // Navigate back to InventoryActivity
+            Intent intent = new Intent(NotificationActivity.this, InventoryActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void checkAndHandleSMSPermission() {

@@ -19,7 +19,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import java.util.ArrayList;
 import java.util.List;
 import com.rmartin.cs360_inventory.RecyclerView.InventoryAdapter;
@@ -67,6 +68,14 @@ public class InventoryActivity extends AppCompatActivity {
         // Set up Logout button
         Button logoutButton = findViewById(R.id.LogOut_btn);
         logoutButton.setOnClickListener(v -> handleLogout());
+
+        // Set up Notifications button
+        Button notificationsButton = findViewById(R.id.NotificationsButton);
+        notificationsButton.setOnClickListener(v -> {
+            // Navigate to NotificationActivity when the button is clicked
+            Intent intent = new Intent(InventoryActivity.this, NotificationActivity.class);
+            startActivity(intent);
+        });  //emulated phone number is +1 555-123-4567
     }
 
     private void fetchInventoryItems() {
@@ -84,6 +93,11 @@ public class InventoryActivity extends AppCompatActivity {
 
                 // Add items to the list
                 inventoryList.add(new InventoryItem(name, count, description));
+
+                // Check for items with count 0
+                if (count == 0) {
+                    showLowInventoryPopup(name);  // Show a popup for low inventory
+                }
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -92,6 +106,19 @@ public class InventoryActivity extends AppCompatActivity {
         // Set up adapter and assign to RecyclerView
         inventoryAdapter = new InventoryAdapter(this, inventoryList);
         inventoryRecyclerView.setAdapter(inventoryAdapter);
+    }
+
+    private void showLowInventoryPopup(String itemName) {
+        new AlertDialog.Builder(this)
+                .setTitle("Low Inventory Alert")
+                .setMessage("The inventory count for " + itemName + " is zero!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void handleLogout() {
