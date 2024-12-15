@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
@@ -12,7 +13,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView itemCountTextView;
     private TextView itemDescriptionTextView;
     private Button backToInventoryButton;
-    private Button modifyItemButton; // Declare the Modify Item button
+    private Button modifyItemButton;
+    private Button deleteItemButton;
+    private InventoryDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,11 @@ public class DetailActivity extends AppCompatActivity {
         itemCountTextView = findViewById(R.id.productCount);
         itemDescriptionTextView = findViewById(R.id.productDescription);
         backToInventoryButton = findViewById(R.id.backToInventoryButton);
-        modifyItemButton = findViewById(R.id.modifyItemButton); // Initialize the Modify Item button
+        modifyItemButton = findViewById(R.id.modifyItemButton);
+        deleteItemButton = findViewById(R.id.deleteItemButton);
+
+        // Initialize the database handler
+        dbHandler = new InventoryDBHandler(this);
 
         // Get data from the Intent
         String itemName = getIntent().getStringExtra("item_name");
@@ -53,5 +60,23 @@ public class DetailActivity extends AppCompatActivity {
             intent.putExtra("item_description", itemDescription);
             startActivity(intent);
         });
+
+        // Set up "Delete Item" button click listener
+        deleteItemButton.setOnClickListener(v -> {
+            dbHandler.deleteItem(itemName); // Call deleteItem from DBHandler
+            Toast.makeText(this, "Item deleted successfully", Toast.LENGTH_SHORT).show();
+
+            // Navigate back to the InventoryActivity
+            Intent intent = new Intent(DetailActivity.this, InventoryActivity.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHandler.close(); // Close the database to avoid memory leaks
     }
 }
+

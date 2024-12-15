@@ -27,9 +27,7 @@
     !-- Spinner Text -->
     <string-array name="settings_items">
         <item>Settings</item>
-        <item>Views</item>
         <item>Notifications</item>
-        <item>Account</item>
         <item>Log Out</item>
     </string-array>
 

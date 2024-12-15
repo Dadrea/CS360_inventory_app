@@ -2,6 +2,7 @@ package com.rmartin.cs360_inventory;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -15,6 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import com.rmartin.cs360_inventory.RecyclerView.InventoryAdapter;
@@ -40,12 +45,6 @@ public class InventoryActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Set up Spinner
-        Spinner settingsSpinner = findViewById(R.id.settingsSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.settings_items, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        settingsSpinner.setAdapter(adapter);
 
         // Initialize database handler
         dbHandler = new InventoryDBHandler(this);
@@ -64,6 +63,10 @@ public class InventoryActivity extends AppCompatActivity {
             Intent intent = new Intent(InventoryActivity.this, AddItemActivity.class);
             startActivity(intent);
         });
+
+        // Set up Logout button
+        Button logoutButton = findViewById(R.id.LogOut_btn);
+        logoutButton.setOnClickListener(v -> handleLogout());
     }
 
     private void fetchInventoryItems() {
@@ -89,6 +92,21 @@ public class InventoryActivity extends AppCompatActivity {
         // Set up adapter and assign to RecyclerView
         inventoryAdapter = new InventoryAdapter(this, inventoryList);
         inventoryRecyclerView.setAdapter(inventoryAdapter);
+    }
+
+    private void handleLogout() {
+        // Clear user session or authentication data
+        getSharedPreferences("user_session", MODE_PRIVATE).edit().clear().apply();
+
+        // Show a Toast message for successful logout
+        Toast.makeText(this, "You have been successfully logged out.", Toast.LENGTH_SHORT).show();
+
+        // Navigate to MainActivity
+        Intent intent = new Intent(InventoryActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        finish(); // Close the current activity
     }
 
     @Override
