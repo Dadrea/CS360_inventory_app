@@ -6,9 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.Image;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import java.util.ArrayList;
+import java.util.List;
+import com.rmartin.cs360_inventory.InventoryItem;
 
 public class InventoryDBHandler extends SQLiteOpenHelper {
 
@@ -21,7 +22,6 @@ public class InventoryDBHandler extends SQLiteOpenHelper {
     private static final String ID_COL = "id";
     private static final String NAME_COL = "itemname";
     private static final String COUNT_COL = "itemcount";
-    private static final String IMAGE_COL = "itemimage";
     private static final String DESCRIPTION_COL = "itemdescription";
 
 
@@ -35,22 +35,75 @@ public class InventoryDBHandler extends SQLiteOpenHelper {
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME_COL + " TEXT, "
                 + COUNT_COL + " INTEGER, "
-                + DESCRIPTION_COL + " TEXT, "
-                + IMAGE_COL + " IMAGE, ";
+                + DESCRIPTION_COL + " TEXT);";
         db.execSQL(query);
     }
 
-    public void addNewUser(String itemname, Integer itemcount, String itemdescription, Image itemimage) {
+    public boolean doesItemExist(String itemName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{ID_COL}, NAME_COL + " = ?", new String[]{itemName}, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    public void addNewItem(String itemname, Integer itemcount, String itemdescription) {
+        if (!doesItemExist(itemname)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(NAME_COL, itemname);
+            values.put(COUNT_COL, itemcount);
+            values.put(DESCRIPTION_COL, itemdescription);
+            db.insert(TABLE_NAME, null, values);
+            db.close();
+        }
+    }
+
+    public void updateItem(String itemName, int newCount, String newDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COUNT_COL, newCount);
+        values.put(DESCRIPTION_COL, newDescription);
 
-        values.put(NAME_COL, itemname);
-        values.put(COUNT_COL, itemcount);
-        values.put(DESCRIPTION_COL, itemdescription);
-        values.put(IMAGE_COL, itemimage);
-
-        db.insert(TABLE_NAME, null, values);
+        db.update(TABLE_NAME, values, NAME_COL + " = ?", new String[]{itemName});
         db.close();
+    }
+
+    public void deleteItem(String itemName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, NAME_COL + " = ?", new String[]{itemName});
+        db.close();
+    }
+
+    public List<InventoryItem> getAllItems() {
+        List<InventoryItem> itemList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                // Get column indices
+                int nameIndex = cursor.getColumnIndex(NAME_COL);
+                int countIndex = cursor.getColumnIndex(COUNT_COL);
+                int descriptionIndex = cursor.getColumnIndex(DESCRIPTION_COL);
+
+                // Check if column indices are valid (>= 0)
+                if (nameIndex != -1 && countIndex != -1 && descriptionIndex != -1) {
+                    String name = cursor.getString(nameIndex);
+                    int count = cursor.getInt(countIndex);
+                    String description = cursor.getString(descriptionIndex);
+
+                    InventoryItem item = new InventoryItem(name, count, description);
+                    itemList.add(item);
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return itemList;
     }
 
     @Override

@@ -22,6 +22,7 @@
     !-- Inventory Text -->
     <string name="product_thumbnail">Image of inventory item</string>
     <string name="Inventory">Forward Logistics Inventory</string>
+    <string name="Add">Add Item</string>
 
     !-- Spinner Text -->
     <string-array name="settings_items">
@@ -31,6 +32,14 @@
         <item>Account</item>
         <item>Log Out</item>
     </string-array>
+
+    !-- Add Item text -->
+    <string name="AddItem">Add Item to Inventory</string>
+    <string name="BackToInventory">Back to Inventory</string>
+    <string name="InventoryCount">Enter Count</string>
+    <string name="InventoryName">Enter Item Name</string>
+    <string name="InventoryDes">Enter Item Description</string>
+
 
     !-- Notification text -->
     <string name="Checking">Checking SMS permission…</string>

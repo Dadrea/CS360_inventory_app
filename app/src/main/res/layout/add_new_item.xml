@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:gravity="top"
+    android:padding="16dp"
+    tools:context=".InventoryActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="@string/Company"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:padding="18dp"
+                android:id="@+id/company_name"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:hint="@string/InventoryName"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18sp"
+                android:background="@drawable/rounded_corner"
+                android:padding="18dp"
+                android:inputType="text"
+                android:id="@+id/new_item_input"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/InventoryCount"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp"
+                android:background="@drawable/rounded_corner"
+                android:padding="18dp"
+                android:inputType="text"
+                android:id="@+id/new_item_count"
+                />
+
+            <EditText
+                android:id="@+id/item_description"
+                android:layout_width="match_parent"
+                android:layout_height="117dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_corner"
+                android:hint="@string/InventoryDes"
+                android:inputType="textLongMessage"
+                android:padding="18dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AddItem"
+                android:backgroundTint="@color/material_dynamic_secondary80"
+                android:textColor="@color/black"
+                android:padding="1dp"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:id="@+id/create_item_btn"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/BackToInventory"
+                android:backgroundTint="@color/material_dynamic_secondary80"
+                android:textColor="@color/black"
+                android:padding="1dp"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:id="@+id/back_to_inv_btn"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
