@@ -6,6 +6,6 @@ The purpose of this assignment was to develop a mobile application to be used by
 
 ## What screens and features were necessary to support user needs and produce a user-centered UI for the app? 
 The needs of this application meant that several items were required. First two databases one for users data and another for the inventory list itself. Second, a log in screen that also allowed for new users to be registered thus allowing them access to the program. Third, a way for users to manipulate the data on the inventory screen. 
-
+https://github.com/Dadrea/CS360_inventory_app/issues/1#issue-2748124041
 
 
