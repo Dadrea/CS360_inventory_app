@@ -22,6 +22,9 @@ If I had attempted to complete this all in on go it would have been an utter fai
 I spent a good many hours testing out each area of implementation before moving on to the next. It is entirely possible that there are some use cases that I missed and given the opportunity I would like to explore more options with managing user inputs and verifying their validity but overall I feel that I accomplished a well-structured application that will perform as intended until the next iteration could be deployed.
 
 ## Where did you have to innovate to overcome a challenge?
+The hardest thing that I needed to implement were my settings links. I was attempting to utilize a spinner in one of my initial iterations, however I was constantly fighting with it to get it properly operational so I instead decided to implement the button system that you can see and interact with on the inventory screen now. I feel that I still have much to learn on this and would like to further explore the option of having a spinner but for the moment I am pleased with the functionality of the button system that I have implemented.
 
+## In what specific component of your mobile app were you particularly successful in demonstrating your knowledge, skills, and experience?
+I feel that the way that the inventory screen and the item detail screens interact with the database is my crowning achievements for this project. I was worried that neither would properly function when I was designing them especially with attempting to use the recycler functionality in the inventory screen itself. However, once it was all said and done the application worked like a charm and I had no issues stemming from either of these screens.
 
 
